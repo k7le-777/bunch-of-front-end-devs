@@ -127,53 +127,50 @@ Browse: View results in a responsive grid
 Preview: Click play button on any result card
 Enjoy: Discover new music!
 
-**-----------------**
+**---------------------------**
 
 **🔄 Git Workflow**
-Branch Naming Convention
-feature/api-integration
-feature/search-ui
-feature/results-display
-fix/audio-player-bug
-docs/update-readme
+# Branch Naming Convention
+- feature/api-integration
+- feature/search-ui
+- feature/results-display
+- fix/audio-player-bug
+- docs/update-readme
 
 **Commit Message Format**
-feat: add search functionality
-fix: resolve audio playback issue
-style: improve card layout
-docs: update API documentation
-refactor: extract validation logic
+- feat: add search functionality
+- fix: resolve audio playback issue
+- style: improve card layout
+- docs: update API documentation
+- refactor: extract validation logic
 
 **Collaboration Process**
-
-Pull latest changes: git pull origin main
-Create feature branch: git checkout -b feature/your-feature
-Make changes and commit
-Push branch: git push origin feature/your-feature
-Create Pull Request on GitHub
-Request teammate review
-Merge after approval
+- Pull latest changes: git pull origin main
+- Create feature branch: git checkout -b feature/your-feature
+- Make changes and commit
+- Push branch: git push origin feature/your-feature
+- Create Pull Request on GitHub
+- Request teammate review
+- Merge after approval
 
 **🤝 Contributing**
-For Team Members
-Before Starting Work:
-
-git checkout main
-git pull origin main
-git checkout -b feature/your-feature-name
+# For Team Members
+# Before Starting Work:
+- git checkout main
+- git pull origin main
+- git checkout -b feature/your-feature-name
 
 **During Development:**
-
-Commit frequently with clear messages
-Test your code before pushing
-Comment complex logic
+- Commit frequently with clear messages
+- Test your code before pushing
+- Comment complex logic
 
 **After Completing Feature:**
-bashgit add .
-git commit -m "feat: descriptive message"
-git push origin feature/your-feature-name
+- git add .
+- git commit -m "feat: descriptive message"
+- git push origin feature/your-feature-name
 
-Then create a Pull Request on GitHub for team review.
+- Then create a Pull Request on GitHub for team review.
 **------------------------**
 
 🎓 Learning Objectives
