@@ -1,0 +1,19 @@
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Environment variables (if you add them later)
+.env
+
+# Notes
+notes.txt
+scratch.js
