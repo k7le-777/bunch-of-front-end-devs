@@ -129,8 +129,9 @@ Enjoy: Discover new music!
 
 **---------------------------**
 
-**🔄 Git Workflow**
-# Branch Naming Convention
+# 🔄 Git Workflow
+
+**Branch Naming Convention**
 - feature/api-integration
 - feature/search-ui
 - feature/results-display
