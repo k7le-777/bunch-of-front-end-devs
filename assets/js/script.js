@@ -1,5 +1,26 @@
 const button = document.getElementById("searchBtn");
 const output = document.getElementById("output");
+const searchInput = document.getElementById("term");
+
+function cleanOneSong(messySong) {
+  return {
+    track: messySong.trackName || "Unknown Track",
+    artist: messySong.artistName || "Unknown Artist",
+    album: messySong.collectionName || "Unknown Album",
+    artwork: messySong.artworkUrl100
+      ? messySong.artworkUrl100.replace("100x100", "600x600")
+      : null,
+    preview: messySong.previewUrl || null,
+    genre: messySong.primaryGenreName || "Unknown",
+    duration: formatDuration(messySong.trackTimeMillis),
+    year: messySong.releaseDate
+      ? new Date(messySong.releaseDate).getFullYear()
+      : null,
+    price: messySong.trackPrice || "N/A",
+  };
+}
+
+
 
 button.addEventListener("click", () => {
 	const term = document.getElementById("term").value || "eminem";
