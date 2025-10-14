@@ -35,14 +35,17 @@ function formatDuration(ms) {
 
 function validateInput(term) {
   const cleaned = term.trim();
-  
+
   // Check if empty
   if (!cleaned) {
-    return { 
-      valid: false, 
+    return {
+      valid: false,
       error: '❌ Please enter an artist, song, or album name' 
     };
   }
+
+  return { valid: true, error: null };
+}
 
 button.addEventListener("click", () => {
 	const term = document.getElementById("term").value || "eminem";
