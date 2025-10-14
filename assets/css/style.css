@@ -24,10 +24,9 @@ body {
 	border: 5px red;
 }
 
-/* .output-container { */
-/* 	display: flex; */
-/* 	justify-content: center; */
-/* 	align-items: center; */
+/* .main { */
+/* 	display: grid; */
+/* 	text-align: center; */
 /* } */
 
 .title {
