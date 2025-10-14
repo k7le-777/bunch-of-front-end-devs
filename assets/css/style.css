@@ -8,6 +8,15 @@ body {
 	color: var(--color);
 }
 
+.nav {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	gap: 16px;
+	border: 5px solid black; /* [WARN] ADDED FOR TESTING PURPOSES THIS IS NOT PART OF THE STYLE */
+	background: #302e30;
+}
+
 #output {
-	border: 1px red;
+	border: 5px red;
 }
