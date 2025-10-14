@@ -1,9 +1,13 @@
 :root {
-	--bg-color: #000000;
-	--color: red;
+	--bg-color: #343835;
+	--color: #bf58d6;
 }
 
 body {
 	background-color: var(--bg-color);
 	color: var(--color);
+}
+
+#output {
+	border: 1px red;
 }
