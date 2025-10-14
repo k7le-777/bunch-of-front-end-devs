@@ -1,6 +1,9 @@
 :root {
 	--bg-color: #343835;
 	--color: #bf58d6;
+	--nav-bg: #302e30;
+	--button: #bf52bf;
+	--button-colour: #ffffff;
 }
 
 body {
@@ -14,9 +17,43 @@ body {
 	text-align: center;
 	gap: 16px;
 	border: 5px solid black; /* [WARN] ADDED FOR TESTING PURPOSES THIS IS NOT PART OF THE STYLE */
-	background: #302e30;
+	background: var(--nav-bg);
 }
 
 #output {
 	border: 5px red;
+}
+
+/* .output-container { */
+/* 	display: flex; */
+/* 	justify-content: center; */
+/* 	align-items: center; */
+/* } */
+
+.title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#searchBtn {
+	background-color: var(--button);
+	border-radius: 6px;
+	padding: 10px;
+	cursor: pointer;
+	color: var(--button-colour);
+}
+
+#term {
+	background: #a30894;
+	color: #ffffff;
+	padding: 10px;
+	border-radius: 6px;
+	margin-right: 5px;
+}
+
+.field {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
