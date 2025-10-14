@@ -20,6 +20,10 @@ function cleanOneSong(messySong) {
   };
 }
 
+function cleanAllSongs(messySongs) {
+  return messySongs.map((song) => cleanOneSong(song));
+}
+
 
 
 button.addEventListener("click", () => {
