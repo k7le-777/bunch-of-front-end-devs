@@ -15,7 +15,9 @@ body {
   font-family: var(--body-font);
   color: var(--primary-color);
   background: var(--bg-gradient);
-  background-size: 500% 500%;
+  background-size: 1000% 1000%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   animation: gradient 20s ease infinite;
   padding: 1.5rem;
 }
