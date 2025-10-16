@@ -53,6 +53,7 @@ nav ul {
 
 nav li{
 	display: inline;
+	padding: 16px 8px;
 }
 
 .nav a {
@@ -70,7 +71,7 @@ nav li{
 	border-radius: 60px;
 }
 
-#output {
+#output, .about-body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -102,6 +103,7 @@ nav li{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	line-height: 5rem;
 }
 
 .title h1 {
@@ -116,6 +118,7 @@ nav li{
 	color: var(--light);
 	font-size: 4rem;
 	margin-bottom: 56px;
+	margin-right: 16px;
 }
 
 #searchBtn {
@@ -156,6 +159,8 @@ nav li{
 
 .field {
 	display: flex;
+	flex-flow: row wrap;
+	gap: 16px;
 	justify-content: center;
 	align-items: center;
 }
