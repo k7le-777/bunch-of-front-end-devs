@@ -88,6 +88,13 @@ nav li {
   border-radius: 40px;
 }
 
+.about-body {
+	display: flex;
+	margin: 0 auto;
+	font-family: var(--body-font);
+	font-size: 1.5rem;
+}
+
 .main {
   display: flex;
   align-items: center;
