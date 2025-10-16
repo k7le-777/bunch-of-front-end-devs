@@ -3,30 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <title>Song Search</title>
-	<link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 </head>
 <body>
-	<nav class="nav">
-		<ul>
-			<li><a href="index.html">Songs</a></li>
-			<li><a href="about.html">About</a></li>
-		</ul>
-	</nav>
-	<div class="title">
-		<h1>Song Search</h1>
-	</div>
-	<div class="field">
-		<input type="text" id="term" placeholder="Enter artist or song" />
-		<button id="searchBtn">Search</button>
-	</div>
-	<main class="main">
-		<pre id="output" class="results"></pre>
-	</main>
+  <nav class="nav">
+    <ul>
+      <li><a href="index.html">Songs</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
 
-	<script src="assets/js/script.js"></script>
+  <header class="title">
+    <h1>Song Search</h1>
+  </header>
+
+  <section class="search-field field">
+    <input type="text" id="term" placeholder="Enter artist or song" />
+    <button id="searchBtn">Search</button>
+  </section>
+
+  <main class="main">
+    <div id="output" class="results"></div>
+  </main>
+
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
