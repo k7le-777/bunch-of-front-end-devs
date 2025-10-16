@@ -75,6 +75,10 @@ button.addEventListener("click", () => {
     .then(response => {
       const cleanData = cleanAllSongs(response.data.results);
       
+      window.musicSearchResults= cleanData;
+      localStorage.setItem("searchResults", JSON.stringify(cleanData));
+
+
       console.log('🎵 Raw data from iTunes:', response.data.results);
       console.log('✨ Clean data ready for UI:', cleanData);
       
