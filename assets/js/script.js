@@ -67,7 +67,7 @@ button.addEventListener("click", () => {
 
   const url = `https://itunes.apple.com/search?term=${encodeURIComponent(
     term
-  )}&limit=25`;
+  )}&limit=25&media=music`;
 
   axios
     .get(url)
