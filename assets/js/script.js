@@ -2,134 +2,93 @@ const button = document.getElementById("searchBtn");
 const output = document.getElementById("output");
 const searchInput = document.getElementById("term");
 
-function cleanOneSong(messySong) {
+// --- Utility functions ---
+function cleanOneSong(song) {
   return {
-    track: messySong.trackName || "Unknown Track",
-    artist: messySong.artistName || "Unknown Artist",
-    album: messySong.collectionName || "Unknown Album",
-    artwork: messySong.artworkUrl100
-      ? messySong.artworkUrl100.replace("100x100", "600x600")
+    track: song.trackName || "Unknown Track",
+    artist: song.artistName || "Unknown Artist",
+    album: song.collectionName || "Unknown Album",
+    artwork: song.artworkUrl100
+      ? song.artworkUrl100.replace("100x100", "200x200")
       : null,
-    preview: messySong.previewUrl || null,
-    genre: messySong.primaryGenreName || "Unknown",
-    duration: formatDuration(messySong.trackTimeMillis),
-    year: messySong.releaseDate
-      ? new Date(messySong.releaseDate).getFullYear()
-      : null,
-    price: messySong.trackPrice || "N/A",
+    preview: song.previewUrl || null,
+    genre: song.primaryGenreName || "Unknown",
+    year: song.releaseDate ? new Date(song.releaseDate).getFullYear() : null,
   };
 }
 
-function cleanAllSongs(messySongs) {
-  return messySongs.map((song) => cleanOneSong(song));
+function cleanAllSongs(songs) {
+  return songs.map(cleanOneSong);
 }
-
-function formatDuration(ms) {
-  if (!ms) return "Unknown";
-  const totalSeconds = Math.floor(ms / 1000);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-}
-
 
 function validateInput(term) {
   const cleaned = term.trim();
-
-  // Check if empty
-  if (!cleaned) {
+  if (!cleaned)
     return {
       valid: false,
-      error: '❌ Please enter an artist, song, or album name' 
+      error: "❌ Please enter an artist, song, or album name",
     };
-  }
-
-  if (!/[a-zA-Z0-9]/.test(cleaned)) {
+  if (!/[a-zA-Z0-9]/.test(cleaned))
     return {
       valid: false,
       error: "❌ Please enter valid search terms (letters or numbers)",
     };
-  }
-
   return { valid: true, error: null };
 }
 
-//MAIN SEARCH HANDLER
+// --- Main search handler ---
+function displayResults(cleanData) {
+  output.innerHTML = ""; // Clear previous results
+  cleanData.forEach((song) => {
+    const div = document.createElement("div");
+    div.classList.add("song");
+    div.innerHTML = `
+      <strong>${song.track}</strong> — ${song.artist}<br>
+      Album: ${song.album} | Year: ${song.year} | Genre: ${song.genre}<br>
+      ${song.preview ? `<audio controls src="${song.preview}"></audio>` : ""}
+      <hr>
+    `;
+    output.appendChild(div);
+  });
+}
 
 button.addEventListener("click", () => {
   const term = searchInput.value;
-
   const validation = validateInput(term);
+
   if (!validation.valid) {
     output.textContent = validation.error;
-    output.style.color = 'red';
-    return; 
+    output.style.color = "red";
+    return;
   }
 
-  output.textContent = '🔍 Searching for music...';
-  output.style.color = 'blue';
+  output.textContent = "🔍 Searching for music...";
+  output.style.color = "blue";
 
-  const url = `https://itunes.apple.com/search?term=${encodeURIComponent(term)}&limit=25`;
+  const url = `https://itunes.apple.com/search?term=${encodeURIComponent(
+    term
+  )}&limit=25`;
 
-  axios.get(url)
-    .then(response => {
+  axios
+    .get(url)
+    .then((response) => {
       const cleanData = cleanAllSongs(response.data.results);
-      
-      window.musicSearchResults= cleanData;
-      localStorage.setItem("searchResults", JSON.stringify(cleanData));
-
-
-      console.log('🎵 Raw data from iTunes:', response.data.results);
-      console.log('✨ Clean data ready for UI:', cleanData);
-      
       if (cleanData.length === 0) {
-        output.textContent = `😕 No results found for "${term}"\n\nTry searching for:\n• A different artist name\n• A popular song title\n• An album name`;
-        output.style.color = 'orange';
+        output.textContent = `😕 No results found for "${term}"`;
+        output.style.color = "orange";
         return;
       }
-
-	  output.style.color = 'black';
-      output.textContent = `✅ Found ${cleanData.length} results for "${term}"!\n\nClean data ready for UI DEV to style:\n\n` + JSON.stringify(cleanData, null, 2);
-	})
-    .catch(error => {
-		 console.error('❌ API Error:', error);
-
-		 let errorMessage = '❌ Oops! Something went wrong.\n\n';
-
-		 if (error.response) {
-			errorMessage += `Error ${error.response.status}: `;
-			switch (error.response.status) {
-				case 400:
-					errorMessage += 'Invalid request. Try different search terms.';
-					break;
-				case 403:
-					errorMessage += 'Access denied. Try again later.';
-					break;
-				case 429:
-					errorMessage += 'Too many requests. Wait a moment and try again.';
-					break;
-				case 500:
-				case 503:
-					errorMessage += 'iTunes service temporarily unavailable.';
-					break;
-				default:
-					errorMessage += 'Your music taste is out of this planet!.';
-			}
-		} else if (error.request) {
-    
-        errorMessage += 'Could not connect to iTunes.\nCheck your internet connection.';
-      	} else {
-        errorMessage += 'Unexpected error: ' + error.message;
-      	}
-      
-      output.textContent = errorMessage;
-      output.style.color = 'red';
+      displayResults(cleanData);
+    })
+    .catch((error) => {
+      console.error("❌ API Error:", error);
+      output.textContent =
+        "❌ Something went wrong. Check console for details.";
+      output.style.color = "red";
     });
 });
 
+// Press Enter to search
 searchInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    button.click();
-  }
+  if (e.key === "Enter") button.click();
 });
-
