@@ -149,6 +149,14 @@ body {
   gap: 0.4rem;
 }
 
+.song audio {
+  width: 100%;     
+  max-width: 200px;  
+  margin-top: 0.5rem;
+  border-radius: 12px;
+}
+
+
 .song .info strong {
   color: var(--primary-color);
 }
