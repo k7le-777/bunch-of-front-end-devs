@@ -2,7 +2,6 @@ const button = document.getElementById("searchBtn");
 const output = document.getElementById("output");
 const searchInput = document.getElementById("term");
 
-// --- Utility functions ---
 function cleanOneSong(song) {
   return {
     track: song.trackName || "Unknown Track",
@@ -31,26 +30,64 @@ function validateInput(term) {
   if (!/[a-zA-Z0-9]/.test(cleaned))
     return {
       valid: false,
-      error: "❌ Please enter valid search terms (letters or numbers)",
+      error: "❌ Enter valid search terms (letters or numbers)",
     };
   return { valid: true, error: null };
 }
 
-// --- Main search handler ---
 function displayResults(cleanData) {
-  output.innerHTML = ""; // Clear previous results
+  output.textContent = ""; 
+  const fragment = document.createDocumentFragment();
+
   cleanData.forEach((song) => {
-    const div = document.createElement("div");
-    div.classList.add("song");
-    div.innerHTML = `
-      <strong>${song.track}</strong> — ${song.artist}<br>
-      Album: ${song.album} | Year: ${song.year} | Genre: ${song.genre}<br>
-      ${song.preview ? `<audio controls src="${song.preview}"></audio>` : ""}
-      <hr>
-    `;
-    output.appendChild(div);
+    const songDiv = document.createElement("div");
+    songDiv.classList.add("song");
+
+    if (song.artwork) {
+      const img = document.createElement("img");
+      img.src = song.artwork;
+      img.alt = `${song.track} artwork`;
+      songDiv.appendChild(img);
+    }
+
+    const infoDiv = document.createElement("div");
+    infoDiv.classList.add("info");
+
+    const trackEl = document.createElement("strong");
+    trackEl.textContent = song.track;
+    infoDiv.appendChild(trackEl);
+
+    const artistEl = document.createElement("p");
+    artistEl.textContent = `Artist: ${song.artist}`;
+    infoDiv.appendChild(artistEl);
+
+    const albumEl = document.createElement("p");
+    albumEl.textContent = `Album: ${song.album} | Year: ${song.year}`;
+    infoDiv.appendChild(albumEl);
+
+    const genreEl = document.createElement("p");
+    genreEl.textContent = `Genre: ${song.genre}`;
+    infoDiv.appendChild(genreEl);
+
+    if (song.preview) {
+      const audioEl = document.createElement("audio");
+      audioEl.controls = true;
+      audioEl.src = song.preview;
+      infoDiv.appendChild(audioEl);
+    }
+
+    songDiv.appendChild(infoDiv);
+    fragment.appendChild(songDiv);
   });
+
+  output.appendChild(fragment);
 }
+
+function showLoading() {
+  output.textContent = "🔄 Searching for music...";
+  output.style.color = "blue";
+}
+
 
 button.addEventListener("click", () => {
   const term = searchInput.value;
@@ -62,22 +99,23 @@ button.addEventListener("click", () => {
     return;
   }
 
-  output.textContent = "🔍 Searching for music...";
-  output.style.color = "blue";
+  showLoading();
 
   const url = `https://itunes.apple.com/search?term=${encodeURIComponent(
     term
-  )}&limit=25&media=music`;
+  )}&limit=25&media=music&entity=song`;
 
   axios
     .get(url)
     .then((response) => {
       const cleanData = cleanAllSongs(response.data.results);
+
       if (cleanData.length === 0) {
         output.textContent = `😕 No results found for "${term}"`;
         output.style.color = "orange";
         return;
       }
+
       displayResults(cleanData);
     })
     .catch((error) => {
@@ -88,7 +126,6 @@ button.addEventListener("click", () => {
     });
 });
 
-// Press Enter to search
 searchInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") button.click();
 });
